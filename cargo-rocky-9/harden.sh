@@ -35,14 +35,6 @@ harden_ssh() {
     echo "[+] SSH has been hardened. Root login disabled, password authentication allowed."
 }
 
-# Disable MySQL if it is running
-disable_mysql() {
-    echo "[*] Disabling MySQL service..."
-    sudo systemctl stop mysqld
-    sudo systemctl disable mysqld
-    echo "[+] MySQL service has been disabled."
-}
-
 # Ensure FTP is enabled with vsftpd and anonymous logins are disabled
 setup_vsftpd() {
     echo "[*] Configuring vsftpd for FTP services..."
@@ -147,7 +139,6 @@ main() {
     echo "[*] Starting system hardening..."
     setup_firewalld
     harden_ssh
-    disable_mysql
     setup_vsftpd
     setup_fail2ban
     disable_unnecessary_services

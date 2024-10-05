@@ -33,7 +33,7 @@ harden_ssh() {
 
     # Restart SSH to apply changes
     sudo systemctl restart sshd
-    echo "[+] SSH has been hardened. Root login disabled, password authentication allowed."
+    echo "[+] SSH has been hardened. Root login disabled, password authentication allowed, MaxTries 3, Pubkey no."
 }
 
 # Ensure FTP is enabled with vsftpd and anonymous logins are disabled
@@ -146,7 +146,7 @@ create_backups () {
 
 install_clamav () {
     sudo dnf install epel-release
-    sudo dnf install clamav clamd clamav-update
+    sudo dnf install clamav clamav-daemon
 }
 
 # Main
@@ -160,8 +160,8 @@ main() {
     setup_auditd
     disable_ipv6
     setup_unattended_upgrades
-    create_backups
     install_clamav
+    create_backups
     setup_firewalld
     echo "[+] System hardening complete."
 }

@@ -138,10 +138,10 @@ setup_unattended_upgrades() {
 
 create_backups () {
     # Backup etc, opt, home, var
-    sudo scp -r /home plinktern@:/home/plinktern/cargo
-    sudo scp -r /opt plinktern@:/home/plinktern/cargo
-    sudo scp -r /etc plinktern@:/home/plinktern/cargo
-    sudo scp -r /var plinktern@:/home/plinktern/cargo
+    sudo scp -r /home plinktern@172.16.3.5:/home/plinktern/cargo
+    sudo scp -r /opt plinktern@172.16.3.5:/home/plinktern/cargo
+    sudo scp -r /etc plinktern@172.16.3.5:/home/plinktern/cargo
+    sudo scp -r /var plinktern@172.16.3.5:/home/plinktern/cargo
 }
 
 install_clamav () {

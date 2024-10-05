@@ -144,10 +144,14 @@ create_backups () {
     sudo scp -r /var plinktern@:/home/plinktern/cargo
 }
 
+install_clamav () {
+    sudo dnf install epel-release
+    sudo dnf install clamav clamd clamav-update
+}
+
 # Main
 main() {
     echo "[*] Starting system hardening..."
-    setup_firewalld
     harden_ssh
     setup_vsftpd
     setup_fail2ban
@@ -157,6 +161,8 @@ main() {
     disable_ipv6
     setup_unattended_upgrades
     create_backups
+    install_clamav
+    setup_firewalld
     echo "[+] System hardening complete."
 }
 

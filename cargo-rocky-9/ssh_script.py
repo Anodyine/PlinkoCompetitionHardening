@@ -7,7 +7,7 @@ host = "172.16.3.40"  # Update this as needed
 port = 22
 username = "plinktern"
 default_password = "HPCCrulez!"
-new_password = "Griffifth1997"
+new_password = "Casca1997"
 sudo_password = new_password  # We'll use the new password for sudo as well
 
 # Configure logging
@@ -68,7 +68,7 @@ def ssh_reconnect_and_run_script():
 
         # Download the Rocky Linux 9 harden.sh script using curl
         logging.info("Downloading Rocky Linux 9 harden.sh script...")
-        stdin, stdout, stderr = client.exec_command('curl -O https://raw.githubusercontent.com/godofthunder8756/TheBandOfTheHawk/refs/heads/main/cargo-rocky-9/harden.sh')
+        stdin, stdout, stderr = client.exec_command('curl -O https://raw.githubusercontent.com/Anodyine/PlinkoCompetitionHardening/refs/heads/modify-rocky-harden-script/cargo-rocky-9/harden.sh')
 
         error = stderr.read().decode().strip()
         if error:

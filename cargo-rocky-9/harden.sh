@@ -29,6 +29,7 @@ harden_ssh() {
     # Disable root login but leave password authentication enabled
     sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
     sudo sed -i 's/#MaxAuthTries 6/MaxAuthTries 3/' /etc/ssh/sshd_config
+    sudo sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication no/' /etc/ssh/sshd_config
 
     # Restart SSH to apply changes
     sudo systemctl restart sshd
@@ -42,7 +43,7 @@ setup_vsftpd() {
     sudo systemctl enable vsftpd --now
     
     # Disable anonymous FTP login
-    sudo sed -i 's/anonymous_enable=YES/write_enable=NO/' /etc/vsftpd/vsftpd.conf
+    sudo sed -i 's/write_enable=YES/write_enable=NO/' /etc/vsftpd/vsftpd.conf
     sudo systemctl restart vsftpd
     echo "[+] vsftpd installed and configured. Anonymous logins disabled."
 }
@@ -94,6 +95,7 @@ filesystem_hardening() {
     sudo chmod 600 /etc/shadow
     sudo chmod 644 /etc/passwd
     sudo chmod 600 /etc/ssh/sshd_config
+    sudo chmod 444 /var/ftp/ImaHorse.png
     sudo chown root:root /etc/ssh/sshd_config
 
     echo "[+] File system permissions have been hardened."

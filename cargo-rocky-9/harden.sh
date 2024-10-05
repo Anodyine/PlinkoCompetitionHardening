@@ -42,7 +42,7 @@ setup_vsftpd() {
     sudo systemctl enable vsftpd --now
     
     # Disable anonymous FTP login
-    sudo sed -i 's/anonymous_enable=YES/anonymous_enable=NO/' /etc/vsftpd/vsftpd.conf
+    sudo sed -i 's/anonymous_enable=YES/write_enable=NO/' /etc/vsftpd/vsftpd.conf
     sudo systemctl restart vsftpd
     echo "[+] vsftpd installed and configured. Anonymous logins disabled."
 }

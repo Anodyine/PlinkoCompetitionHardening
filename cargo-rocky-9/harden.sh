@@ -136,6 +136,14 @@ setup_unattended_upgrades() {
     echo "[+] Automatic security updates configured."
 }
 
+create_backups () {
+    # Backup etc, opt, home, var
+    sudo scp -r /home plinktern@:/home/plinktern/cargo
+    sudo scp -r /opt plinktern@:/home/plinktern/cargo
+    sudo scp -r /etc plinktern@:/home/plinktern/cargo
+    sudo scp -r /var plinktern@:/home/plinktern/cargo
+}
+
 # Main
 main() {
     echo "[*] Starting system hardening..."
@@ -148,6 +156,7 @@ main() {
     setup_auditd
     disable_ipv6
     setup_unattended_upgrades
+    create_backups
     echo "[+] System hardening complete."
 }
 

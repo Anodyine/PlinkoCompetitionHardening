@@ -146,7 +146,7 @@ create_backups () {
 
 install_clamav () {
     sudo dnf install epel-release
-    sudo dnf install clamav clamav-daemon
+    sudo dnf install clamav clamd clamav-update
 }
 
 # Main

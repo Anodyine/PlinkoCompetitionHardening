@@ -3,7 +3,7 @@ import time
 import logging
 
 # SSH details
-host = "172.16.3.40"  # Update this as needed
+host = "172.16.3.30"  # Update this as needed
 port = 22
 username = "plinktern"
 default_password = "HPCCrulez!"
@@ -66,9 +66,9 @@ def ssh_reconnect_and_run_script():
 
         logging.info("Reconnected successfully with new password.")
 
-        # Download the Rocky Linux 9 harden.sh script using curl
-        logging.info("Downloading Rocky Linux 9 harden.sh script...")
-        stdin, stdout, stderr = client.exec_command('curl -O https://raw.githubusercontent.com/godofthunder8756/TheBandOfTheHawk/refs/heads/main/cargo-rocky-9/harden.sh')
+        # Download the harden.sh script using curl
+        logging.info("Downloading harden.sh script...")
+        stdin, stdout, stderr = client.exec_command('curl -O https://raw.githubusercontent.com/godofthunder8756/TheBandOfTheHawk/refs/heads/main/mast-ubuntu-20/harden.sh')
 
         error = stderr.read().decode().strip()
         if error:
@@ -78,24 +78,9 @@ def ssh_reconnect_and_run_script():
 
         logging.info("harden.sh script downloaded.")
 
-        # Make the harden.sh script executable
-        logging.info("Making harden.sh script executable...")
-        stdin, stdout, stderr = client.exec_command("chmod +x harden.sh")
-        error = stderr.read().decode().strip()
-        if error:
-            logging.error(f"Error making script executable: {error}")
-            client.close()
-            return
-
-        logging.info("harden.sh script is now executable.")
-
-        # Run the harden.sh script with sudo, automatically entering password and "y" for any prompts
+        # Run the harden.sh script with sudo
         logging.info("Running the harden.sh script with sudo...")
-        stdin, stdout, stderr = client.exec_command(f"echo {sudo_password} | sudo -S bash -c './harden.sh'")
-
-        # Automatically respond with "y" to any prompts during script execution
-        stdin.write("y\n")
-        stdin.flush()
+        stdin, stdout, stderr = client.exec_command(f"echo {sudo_password} | sudo -S bash harden.sh")
 
         stdout = stdout.read().decode()
         error = stderr.read().decode().strip()
@@ -116,7 +101,7 @@ def main():
     # Step 1: Change the password and kick off users
     ssh_change_password()
 
-    # Step 2: Reconnect and run the harden.sh script for Rocky Linux 9
+    # Step 2: Reconnect and run the harden.sh script
     ssh_reconnect_and_run_script()
 
 if __name__ == "__main__":
